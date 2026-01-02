@@ -201,37 +201,84 @@ export default class ResultsScene extends Phaser.Scene {
       this.scene.start('MenuScene')
     })
 
-    // Confetti for high scores
+    // Confetti and victory effects for high scores
     if (percentage >= 80) {
       this.createConfetti()
+      this.playVictorySound()
+    }
+  }
+
+  playVictorySound() {
+    const soundManager = this.registry.get('soundManager')
+    if (soundManager) {
+      soundManager.playVictory()
     }
   }
 
   createConfetti() {
-    const colors = [0x00ff88, 0x00d4ff, 0xffd700, 0xff6b6b, 0xa855f7]
+    const width = this.cameras.main.width
 
-    for (let i = 0; i < 50; i++) {
-      const x = Phaser.Math.Between(0, 1280)
-      const delay = Phaser.Math.Between(0, 2000)
+    // Create multiple particle emitters for different confetti colors
+    for (let i = 0; i < 6; i++) {
+      const emitter = this.add.particles(width / 2, -50, `confetti-${i}`, {
+        x: { min: -width / 2, max: width / 2 },
+        speedY: { min: 100, max: 300 },
+        speedX: { min: -100, max: 100 },
+        scale: { start: 1.5, end: 0.5 },
+        alpha: { start: 1, end: 0.6 },
+        rotate: { min: 0, max: 360 },
+        lifespan: 4000,
+        frequency: 80,
+        quantity: 2,
+        gravityY: 100,
+      })
+      emitter.setDepth(150)
 
-      const confetti = this.add.rectangle(
-        x,
-        -20,
-        Phaser.Math.Between(8, 16),
-        Phaser.Math.Between(8, 16),
-        Phaser.Utils.Array.GetRandom(colors)
-      )
-
-      this.tweens.add({
-        targets: confetti,
-        y: 700,
-        x: x + Phaser.Math.Between(-100, 100),
-        rotation: Phaser.Math.Between(0, 6),
-        duration: Phaser.Math.Between(2000, 4000),
-        delay: delay,
-        ease: 'Sine.easeIn',
-        onComplete: () => confetti.destroy(),
+      // Stop emitting after a few seconds
+      this.time.delayedCall(3000, () => {
+        emitter.stop()
       })
     }
+
+    // Also add some sparkle particles
+    const sparkleEmitter = this.add.particles(width / 2, 200, 'sparkle', {
+      x: { min: -200, max: 200 },
+      y: { min: -100, max: 100 },
+      speed: { min: 50, max: 150 },
+      scale: { start: 0.8, end: 0 },
+      alpha: { start: 1, end: 0 },
+      tint: [0xffd700, 0x00ff88, 0x00d4ff],
+      lifespan: 1500,
+      frequency: 100,
+      quantity: 1,
+      blendMode: 'ADD',
+    })
+    sparkleEmitter.setDepth(151)
+
+    this.time.delayedCall(2500, () => {
+      sparkleEmitter.stop()
+    })
+
+    // Big celebratory burst at the start
+    this.time.delayedCall(500, () => {
+      for (let i = 0; i < 30; i++) {
+        const x = Phaser.Math.Between(100, width - 100)
+        const confetti = this.add.image(x, -20, `confetti-${i % 6}`)
+        confetti.setScale(Phaser.Math.FloatBetween(1, 2))
+        confetti.setDepth(149)
+
+        this.tweens.add({
+          targets: confetti,
+          y: Phaser.Math.Between(400, 700),
+          x: x + Phaser.Math.Between(-150, 150),
+          rotation: Phaser.Math.FloatBetween(0, Math.PI * 4),
+          scale: 0.3,
+          alpha: 0,
+          duration: Phaser.Math.Between(2000, 3500),
+          ease: 'Cubic.easeOut',
+          onComplete: () => confetti.destroy(),
+        })
+      }
+    })
   }
 }

@@ -57,48 +57,103 @@ export default class BootScene extends Phaser.Scene {
   }
 
   createPlaceholderAssets() {
-    // ========== IMPROVED PLAYER CHARACTER ==========
-    const playerGraphics = this.make.graphics({ x: 0, y: 0, add: false })
+    // ========== PLAYER WALKING ANIMATION SPRITESHEET ==========
+    // Create 4 frames for walk cycle (down direction, will flip for others)
+    const playerSheetGraphics = this.make.graphics({ x: 0, y: 0, add: false })
 
-    // Shadow
+    for (let frame = 0; frame < 4; frame++) {
+      const offsetX = frame * 32
+
+      // Leg positions for walk cycle
+      const legOffsets = [
+        { left: 0, right: 0 },   // Frame 0: standing
+        { left: -2, right: 2 },  // Frame 1: left forward
+        { left: 0, right: 0 },   // Frame 2: standing
+        { left: 2, right: -2 },  // Frame 3: right forward
+      ]
+      const legOffset = legOffsets[frame]
+
+      // Bob effect
+      const bobY = (frame === 1 || frame === 3) ? -1 : 0
+
+      // Shadow
+      playerSheetGraphics.fillStyle(0x000000, 0.2)
+      playerSheetGraphics.fillEllipse(offsetX + 16, 30, 20, 8)
+
+      // Left Leg
+      playerSheetGraphics.fillStyle(0x2c3e50, 1)
+      playerSheetGraphics.fillRoundedRect(offsetX + 10 + legOffset.left, 22, 5, 8, 2)
+      // Right Leg
+      playerSheetGraphics.fillRoundedRect(offsetX + 17 + legOffset.right, 22, 5, 8, 2)
+
+      // Body - gradient effect with layers
+      playerSheetGraphics.fillStyle(0x2980b9, 1)
+      playerSheetGraphics.fillRoundedRect(offsetX + 8, 12 + bobY, 16, 12, 3)
+      playerSheetGraphics.fillStyle(0x3498db, 1)
+      playerSheetGraphics.fillRoundedRect(offsetX + 9, 13 + bobY, 14, 10, 2)
+
+      // ID Badge
+      playerSheetGraphics.fillStyle(0xffffff, 1)
+      playerSheetGraphics.fillRect(offsetX + 18, 14 + bobY, 4, 5)
+      playerSheetGraphics.fillStyle(0x00ff88, 1)
+      playerSheetGraphics.fillRect(offsetX + 19, 15 + bobY, 2, 2)
+
+      // Head
+      playerSheetGraphics.fillStyle(0xf5d0a9, 1)
+      playerSheetGraphics.fillCircle(offsetX + 16, 9 + bobY, 7)
+
+      // Hair
+      playerSheetGraphics.fillStyle(0x4a3728, 1)
+      playerSheetGraphics.fillEllipse(offsetX + 16, 5 + bobY, 8, 5)
+      playerSheetGraphics.fillCircle(offsetX + 11, 7 + bobY, 3)
+      playerSheetGraphics.fillCircle(offsetX + 21, 7 + bobY, 3)
+
+      // Face
+      playerSheetGraphics.fillStyle(0x2c3e50, 1)
+      playerSheetGraphics.fillCircle(offsetX + 13, 8 + bobY, 1) // Left eye
+      playerSheetGraphics.fillCircle(offsetX + 19, 8 + bobY, 1) // Right eye
+      playerSheetGraphics.fillStyle(0xe74c3c, 0.5)
+      playerSheetGraphics.fillEllipse(offsetX + 16, 12 + bobY, 3, 1) // Smile
+    }
+
+    playerSheetGraphics.generateTexture('player-sheet', 128, 32)
+
+    // Also create single frame for backwards compatibility
+    const playerGraphics = this.make.graphics({ x: 0, y: 0, add: false })
     playerGraphics.fillStyle(0x000000, 0.2)
     playerGraphics.fillEllipse(16, 30, 20, 8)
-
-    // Legs
     playerGraphics.fillStyle(0x2c3e50, 1)
     playerGraphics.fillRoundedRect(10, 22, 5, 8, 2)
     playerGraphics.fillRoundedRect(17, 22, 5, 8, 2)
-
-    // Body - gradient effect with layers
     playerGraphics.fillStyle(0x2980b9, 1)
     playerGraphics.fillRoundedRect(8, 12, 16, 12, 3)
     playerGraphics.fillStyle(0x3498db, 1)
     playerGraphics.fillRoundedRect(9, 13, 14, 10, 2)
-
-    // ID Badge
     playerGraphics.fillStyle(0xffffff, 1)
     playerGraphics.fillRect(18, 14, 4, 5)
     playerGraphics.fillStyle(0x00ff88, 1)
     playerGraphics.fillRect(19, 15, 2, 2)
-
-    // Head
     playerGraphics.fillStyle(0xf5d0a9, 1)
     playerGraphics.fillCircle(16, 9, 7)
-
-    // Hair
     playerGraphics.fillStyle(0x4a3728, 1)
     playerGraphics.fillEllipse(16, 5, 8, 5)
     playerGraphics.fillCircle(11, 7, 3)
     playerGraphics.fillCircle(21, 7, 3)
-
-    // Face
     playerGraphics.fillStyle(0x2c3e50, 1)
-    playerGraphics.fillCircle(13, 8, 1) // Left eye
-    playerGraphics.fillCircle(19, 8, 1) // Right eye
+    playerGraphics.fillCircle(13, 8, 1)
+    playerGraphics.fillCircle(19, 8, 1)
     playerGraphics.fillStyle(0xe74c3c, 0.5)
-    playerGraphics.fillEllipse(16, 12, 3, 1) // Smile
-
+    playerGraphics.fillEllipse(16, 12, 3, 1)
     playerGraphics.generateTexture('player', 32, 32)
+
+    // ========== CONFETTI PARTICLES ==========
+    const confettiColors = [0xff6b6b, 0x4ecdc4, 0xffe66d, 0x95e1d3, 0xf38181, 0x00ff88]
+    confettiColors.forEach((color, i) => {
+      const confettiGraphics = this.make.graphics({ x: 0, y: 0, add: false })
+      confettiGraphics.fillStyle(color, 1)
+      confettiGraphics.fillRect(0, 0, 8, 8)
+      confettiGraphics.generateTexture(`confetti-${i}`, 8, 8)
+    })
 
     // ========== IMPROVED FLOOR ==========
     const floorGraphics = this.make.graphics({ x: 0, y: 0, add: false })

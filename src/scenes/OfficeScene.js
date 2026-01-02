@@ -69,6 +69,15 @@ export default class OfficeScene extends Phaser.Scene {
 
     // Track last direction for idle animation
     this.lastDirection = 'down'
+
+    // Start background music
+    const soundManager = this.registry.get('soundManager')
+    if (soundManager) {
+      soundManager.startMusic('office')
+    }
+
+    // Create NPCs
+    this.createNPCs()
   }
 
   createOfficeMap() {
@@ -180,6 +189,130 @@ export default class OfficeScene extends Phaser.Scene {
     shadow.setAlpha(0.3)
     shadow.setScale(scale)
     return shadow
+  }
+
+  createNPCs() {
+    this.npcs = []
+
+    // NPC patrol paths - each NPC walks between waypoints
+    const npcPaths = [
+      // NPC 1: Patrols main office area
+      {
+        waypoints: [
+          { x: 400, y: 400 },
+          { x: 600, y: 400 },
+          { x: 600, y: 550 },
+          { x: 400, y: 550 },
+        ],
+        speed: 60,
+        color: 0xe74c3c, // Red shirt
+      },
+      // NPC 2: Walks between break room and meeting room
+      {
+        waypoints: [
+          { x: 1100, y: 160 },
+          { x: 1100, y: 400 },
+          { x: 1100, y: 750 },
+          { x: 1100, y: 400 },
+        ],
+        speed: 50,
+        color: 0x9b59b6, // Purple shirt
+      },
+      // NPC 3: Patrols near entrance/reception
+      {
+        waypoints: [
+          { x: 200, y: 800 },
+          { x: 500, y: 800 },
+          { x: 500, y: 700 },
+          { x: 200, y: 700 },
+        ],
+        speed: 55,
+        color: 0xf39c12, // Orange shirt
+      },
+    ]
+
+    npcPaths.forEach((path, index) => {
+      const npc = this.createNPC(path, index)
+      this.npcs.push(npc)
+    })
+  }
+
+  createNPC(pathConfig, index) {
+    const startPoint = pathConfig.waypoints[0]
+
+    // Create NPC sprite
+    const npc = this.add.sprite(startPoint.x, startPoint.y, 'npc')
+    npc.setDepth(9)
+    npc.setScale(1.2)
+    npc.setTint(pathConfig.color)
+
+    // Add shadow
+    const shadow = this.add.image(startPoint.x, startPoint.y + 16, 'shadow')
+    shadow.setDepth(1)
+    shadow.setAlpha(0.3)
+    shadow.setScale(1)
+
+    // Store reference
+    npc.shadow = shadow
+    npc.waypoints = pathConfig.waypoints
+    npc.currentWaypoint = 0
+    npc.speed = pathConfig.speed
+
+    // Start walking
+    this.moveNPCToNextWaypoint(npc)
+
+    return npc
+  }
+
+  moveNPCToNextWaypoint(npc) {
+    const nextIndex = (npc.currentWaypoint + 1) % npc.waypoints.length
+    const target = npc.waypoints[nextIndex]
+
+    // Calculate distance and duration
+    const distance = Phaser.Math.Distance.Between(npc.x, npc.y, target.x, target.y)
+    const duration = (distance / npc.speed) * 1000
+
+    // Flip sprite based on direction
+    if (target.x < npc.x) {
+      npc.setFlipX(true)
+    } else if (target.x > npc.x) {
+      npc.setFlipX(false)
+    }
+
+    // Move NPC
+    this.tweens.add({
+      targets: [npc, npc.shadow],
+      x: target.x,
+      duration: duration,
+      ease: 'Linear',
+      onUpdate: () => {
+        npc.shadow.setPosition(npc.x, npc.y + 16)
+      },
+    })
+
+    this.tweens.add({
+      targets: npc,
+      y: target.y,
+      duration: duration,
+      ease: 'Linear',
+      onComplete: () => {
+        npc.currentWaypoint = nextIndex
+        // Small pause at waypoint
+        this.time.delayedCall(Phaser.Math.Between(500, 1500), () => {
+          this.moveNPCToNextWaypoint(npc)
+        })
+      },
+    })
+
+    // Bob animation while walking
+    this.tweens.add({
+      targets: npc,
+      scaleY: 1.15,
+      duration: 200,
+      yoyo: true,
+      repeat: Math.floor(duration / 400),
+      ease: 'Sine.easeInOut',
+    })
   }
 
   createAmbientEffects() {
