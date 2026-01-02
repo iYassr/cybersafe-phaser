@@ -1,0 +1,19 @@
+{
+  "name": "cybersafe-phaser",
+  "version": "1.0.0",
+  "description": "CyberSafe Office - A cybersecurity awareness training game",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "phaser": "^3.90.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "playwright": "^1.57.0",
+    "vite": "^6.0.0"
+  }
+}
