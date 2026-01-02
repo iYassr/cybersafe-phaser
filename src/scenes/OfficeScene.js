@@ -441,6 +441,46 @@ export default class OfficeScene extends Phaser.Scene {
     if (!completedScenarios.includes('tailgating')) {
       new InteractiveObject(this, 640, 912, 'door', 'tailgating')
     }
+
+    // === NEW SCENARIOS ===
+
+    // Ransomware & Malware (Main Office - Row 2)
+    if (!completedScenarios.includes('ransomware-popup')) {
+      new InteractiveObject(this, 368, 416 + 96, 'computer', 'ransomware-popup')
+    }
+    if (!completedScenarios.includes('fake-antivirus')) {
+      new InteractiveObject(this, 528, 416 + 96, 'computer', 'fake-antivirus')
+    }
+
+    // Mobile Security (Break Room)
+    if (!completedScenarios.includes('mobile-charging')) {
+      new InteractiveObject(this, 1040, 200, 'phone', 'mobile-charging')
+    }
+
+    // QR Code (Reception)
+    if (!completedScenarios.includes('qr-code-scam')) {
+      new InteractiveObject(this, 280, 832, 'printer', 'qr-code-scam')
+    }
+
+    // Social Media (Break Room)
+    if (!completedScenarios.includes('social-media-leak')) {
+      new InteractiveObject(this, 1168, 200, 'phone', 'social-media-leak')
+    }
+
+    // LinkedIn Phishing (Main Office - Row 3)
+    if (!completedScenarios.includes('linkedin-phishing')) {
+      new InteractiveObject(this, 688, 416 + 96, 'computer', 'linkedin-phishing')
+    }
+
+    // Cloud Sharing (Main Office - Row 3)
+    if (!completedScenarios.includes('cloud-sharing')) {
+      new InteractiveObject(this, 848, 416 + 96, 'computer', 'cloud-sharing')
+    }
+
+    // Disposal Fail (Near Server Room)
+    if (!completedScenarios.includes('disposal-fail')) {
+      new InteractiveObject(this, 240, 200, 'usb', 'disposal-fail')
+    }
   }
 
   createHUD() {
@@ -562,6 +602,15 @@ export default class OfficeScene extends Phaser.Scene {
       { x: 160, y: 832, completed: completedScenarios.includes('tech-support-scam') },
       { x: 640, y: 864, completed: completedScenarios.includes('usb-drive') },
       { x: 640, y: 912, completed: completedScenarios.includes('tailgating') },
+      // New scenarios
+      { x: 368, y: 512, completed: completedScenarios.includes('ransomware-popup') },
+      { x: 528, y: 512, completed: completedScenarios.includes('fake-antivirus') },
+      { x: 1040, y: 200, completed: completedScenarios.includes('mobile-charging') },
+      { x: 280, y: 832, completed: completedScenarios.includes('qr-code-scam') },
+      { x: 1168, y: 200, completed: completedScenarios.includes('social-media-leak') },
+      { x: 688, y: 512, completed: completedScenarios.includes('linkedin-phishing') },
+      { x: 848, y: 512, completed: completedScenarios.includes('cloud-sharing') },
+      { x: 240, y: 200, completed: completedScenarios.includes('disposal-fail') },
     ]
 
     objectPositions.forEach(pos => {

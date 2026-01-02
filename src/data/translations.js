@@ -43,6 +43,7 @@ export const translations = {
     correct: 'Correct!',
     incorrect: 'Incorrect',
     continue: 'Continue',
+    learnMore: 'Learn More',
 
     // Scenarios
     scenarios: {
@@ -166,7 +167,129 @@ export const translations = {
           { text: 'Let them in but stay with them', correct: false, feedback: 'You shouldn\'t let unauthorized people in at all - verify first.' },
         ],
       },
+      'ransomware-popup': {
+        title: 'Ransomware Alert',
+        description: 'A popup appears: "YOUR FILES HAVE BEEN ENCRYPTED! Pay $500 in Bitcoin within 24 hours." Your files seem inaccessible.',
+        choices: [
+          { text: 'Pay the ransom to recover files', correct: false, feedback: 'Never pay ransomware! Payment doesn\'t guarantee recovery and funds criminals.' },
+          { text: 'Disconnect and report to IT immediately', correct: true, feedback: 'Excellent! Disconnecting prevents spread. IT can restore from backups.' },
+          { text: 'Close popup and continue working', correct: false, feedback: 'Ignoring won\'t help. Whether real or fake, IT needs to handle it.' },
+        ],
+      },
+      'fake-antivirus': {
+        title: 'Security Scan Alert',
+        description: 'A popup says "Windows Defender detected 47 threats! Click SCAN NOW to remove immediately."',
+        choices: [
+          { text: 'Click "Scan Now" to remove threats', correct: false, feedback: 'This is a scam! Real antivirus doesn\'t use browser popups.' },
+          { text: 'Close browser and run actual antivirus', correct: true, feedback: 'Correct! Close the tab without clicking anything in the popup.' },
+          { text: 'Call the phone number shown', correct: false, feedback: 'Never call popup numbers! They connect to scammers.' },
+        ],
+      },
+      'mobile-charging': {
+        title: 'Public Charging Station',
+        description: 'Your phone is at 5% at a conference. A free USB charging station is available.',
+        choices: [
+          { text: 'Use the provided USB cable', correct: false, feedback: '"Juice jacking" attacks steal data through USB. Cables transfer more than power.' },
+          { text: 'Use power outlet with your own charger', correct: true, feedback: 'Great! Your own charger or a USB data blocker prevents attacks.' },
+          { text: 'It\'s a conference, so it\'s safe', correct: false, feedback: 'Attackers target conferences specifically. Never assume public USB is safe.' },
+        ],
+      },
+      'qr-code-scam': {
+        title: 'QR Code on Flyer',
+        description: 'A flyer says "URGENT: Scan QR to register vehicle or face towing." It has the company logo.',
+        choices: [
+          { text: 'Scan immediately to avoid towing', correct: false, feedback: 'QR codes can lead to phishing sites. Logos are easily copied.' },
+          { text: 'Verify with HR/Facilities first', correct: true, feedback: 'Perfect! Official policy changes come through verified channels.' },
+          { text: 'The logo looks real, so it\'s legitimate', correct: false, feedback: 'Logos are easily faked. Always verify through official sources.' },
+        ],
+      },
+      'social-media-leak': {
+        title: 'Social Media Photo',
+        description: 'A colleague posts office photos. You notice whiteboards with credentials visible in the background.',
+        choices: [
+          { text: 'It\'s their personal account', correct: false, feedback: 'Background info in photos is a real security risk attackers exploit.' },
+          { text: 'Politely ask them to remove it', correct: true, feedback: 'Correct! Help colleagues understand what\'s visible in their photos.' },
+          { text: 'Report to HR immediately', correct: false, feedback: 'A friendly conversation first is more effective. They likely didn\'t realize.' },
+        ],
+      },
+      'linkedin-phishing': {
+        title: 'LinkedIn Recruiter Message',
+        description: 'A recruiter messages asking for your SSN and current salary "for their records."',
+        choices: [
+          { text: 'Fill out the form', correct: false, feedback: 'Real recruiters never ask for SSN via online forms. This is identity theft.' },
+          { text: 'Ignore or report as scam', correct: true, feedback: 'Excellent! Real recruiters don\'t request sensitive info upfront.' },
+          { text: 'Share work email for documents', correct: false, feedback: 'Don\'t give scammers your work email - verify through official channels.' },
+        ],
+      },
+      'cloud-sharing': {
+        title: 'Quick File Share',
+        description: 'Company email blocks large files. A colleague suggests using personal Google Drive.',
+        choices: [
+          { text: 'Use personal Google Drive', correct: false, feedback: 'Personal accounts lack company security controls and compliance features.' },
+          { text: 'Use approved company tools or ask IT', correct: true, feedback: 'Correct! Company tools maintain security and proper access controls.' },
+          { text: 'Create a new account for work', correct: false, feedback: 'Unauthorized accounts still bypass security policies.' },
+        ],
+      },
+      'disposal-fail': {
+        title: 'Old Equipment Disposal',
+        description: 'A colleague is throwing an old hard drive in regular trash. "IT said it\'s wiped."',
+        choices: [
+          { text: 'Help throw it away', correct: false, feedback: '"Wiped" drives can be recovered. Proper disposal needs physical destruction.' },
+          { text: 'Return to IT for secure disposal', correct: true, feedback: 'Excellent! IT handles storage media to ensure proper destruction.' },
+          { text: 'Break it with a hammer', correct: false, feedback: 'DIY destruction is unsafe and may not fully destroy data.' },
+        ],
+      },
     },
+
+    // Level Select
+    selectLevel: 'SELECT LEVEL',
+    level1Name: 'Main Office',
+    level1Subtitle: 'Beginner',
+    level1Desc: 'Learn the basics of cybersecurity awareness',
+    level2Name: 'Data Center',
+    level2Subtitle: 'Intermediate',
+    level2Desc: 'Protect critical infrastructure',
+    level3Name: 'Executive Floor',
+    level3Subtitle: 'Advanced',
+    level3Desc: 'Defend against targeted attacks',
+    scenarios: 'scenarios',
+    bestScore: 'Best',
+    unlockRequirement: 'Complete previous\nlevel with 70%+ score',
+    levelLocked: 'Locked',
+
+    // Data Center room labels
+    serverHall: 'SERVER HALL',
+    cooling: 'COOLING',
+    network: 'NETWORK OPS',
+    securityStation: 'SECURITY STATION',
+
+    // Executive Floor room labels
+    ceoOffice: 'CEO OFFICE',
+    boardroom: 'BOARDROOM',
+    executiveAssistant: 'EXECUTIVE ASSISTANT',
+    vipReception: 'VIP RECEPTION',
+
+    // Story mode
+    skip: 'Skip >>',
+    clickToContinue: 'Click to continue...',
+    storyCharacterName: 'Security Officer Chen',
+    story1Intro1: "Welcome to Acme Corp! I'm Officer Chen, your Security Awareness Champion mentor.",
+    story1Intro2: "Today is your first day in the Main Office. You'll learn to spot common security threats.",
+    story1Intro3: "Remember: cybersecurity is everyone's responsibility. Stay vigilant!",
+    story1Intro4: "Explore the office and interact with glowing objects to handle security scenarios.",
+    story1Outro1: "Excellent work on your first day! You've shown great security awareness.",
+    story1Outro2: "But there's more to protect. Strange activity has been detected in the Data Center...",
+    story2Intro1: "We've detected unusual network activity. The Data Center needs your attention.",
+    story2Intro2: "This area houses our critical infrastructure. The stakes are higher here.",
+    story2Intro3: "Physical security and access control are paramount. Trust but verify.",
+    story2Outro1: "The infrastructure is secure. But our investigation revealed a deeper threat...",
+    story2Outro2: "Intelligence suggests our executives are being targeted. Head to the Executive Floor.",
+    story3Intro1: "Welcome to the Executive Floor. This is where high-value targets work.",
+    story3Intro2: "Attackers specifically target executives with sophisticated social engineering.",
+    story3Intro3: "CEO fraud, corporate espionage, insider threats... You must be prepared for anything.",
+    story3Outro1: "Outstanding! You've protected Acme Corp from top to bottom.",
+    story3Outro2: "You are now officially our Security Awareness Champion. The organization is safer because of you!",
+    story3Outro3: "Remember: security is a continuous journey, not a destination. Stay vigilant!",
   },
 
   ar: {
@@ -213,6 +336,7 @@ export const translations = {
     correct: 'صحيح!',
     incorrect: 'خطأ',
     continue: 'متابعة',
+    learnMore: 'اعرف المزيد',
 
     // Scenarios
     scenarios: {
@@ -336,7 +460,129 @@ export const translations = {
           { text: 'دعه يدخل لكن ابقَ معه', correct: false, feedback: 'لا يجب السماح لأشخاص غير مصرح لهم بالدخول أصلاً - تحقق أولاً.' },
         ],
       },
+      'ransomware-popup': {
+        title: 'تنبيه برنامج فدية',
+        description: 'ظهرت نافذة: "تم تشفير ملفاتك! ادفع 500 دولار بالبيتكوين خلال 24 ساعة." ملفاتك لا يمكن الوصول إليها.',
+        choices: [
+          { text: 'ادفع الفدية لاستعادة الملفات', correct: false, feedback: 'لا تدفع أبدًا للفدية! الدفع لا يضمن الاستعادة ويمول المجرمين.' },
+          { text: 'افصل الشبكة وأبلغ تقنية المعلومات فورًا', correct: true, feedback: 'ممتاز! الفصل يمنع الانتشار. يمكن لتقنية المعلومات الاستعادة من النسخ الاحتياطية.' },
+          { text: 'أغلق النافذة واستمر بالعمل', correct: false, feedback: 'التجاهل لن يساعد. سواء كان حقيقيًا أو مزيفًا، تقنية المعلومات بحاجة للتعامل معه.' },
+        ],
+      },
+      'fake-antivirus': {
+        title: 'تنبيه فحص أمني',
+        description: 'نافذة تقول "Windows Defender اكتشف 47 تهديدًا! انقر على فحص الآن للإزالة فورًا."',
+        choices: [
+          { text: 'انقر على "فحص الآن" لإزالة التهديدات', correct: false, feedback: 'هذا احتيال! مضاد الفيروسات الحقيقي لا يستخدم نوافذ المتصفح.' },
+          { text: 'أغلق المتصفح وشغل مضاد الفيروسات الحقيقي', correct: true, feedback: 'صحيح! أغلق التبويب دون النقر على أي شيء في النافذة.' },
+          { text: 'اتصل بالرقم الموضح', correct: false, feedback: 'لا تتصل أبدًا بأرقام النوافذ المنبثقة! تتصل بالمحتالين.' },
+        ],
+      },
+      'mobile-charging': {
+        title: 'محطة شحن عامة',
+        description: 'بطارية هاتفك 5% في مؤتمر. محطة شحن USB مجانية متاحة.',
+        choices: [
+          { text: 'استخدم كابل USB المتوفر', correct: false, feedback: 'هجمات "Juice jacking" تسرق البيانات عبر USB. الكابلات تنقل أكثر من الطاقة.' },
+          { text: 'استخدم مقبس الكهرباء مع شاحنك الخاص', correct: true, feedback: 'رائع! شاحنك الخاص أو حاجز بيانات USB يمنع الهجمات.' },
+          { text: 'إنه مؤتمر، لذا هو آمن', correct: false, feedback: 'المهاجمون يستهدفون المؤتمرات تحديدًا. لا تفترض أن USB العام آمن.' },
+        ],
+      },
+      'qr-code-scam': {
+        title: 'رمز QR على منشور',
+        description: 'منشور يقول "عاجل: امسح QR لتسجيل سيارتك أو تواجه السحب." يحمل شعار الشركة.',
+        choices: [
+          { text: 'امسح فورًا لتجنب السحب', correct: false, feedback: 'رموز QR يمكن أن تؤدي لمواقع تصيد. الشعارات تُنسخ بسهولة.' },
+          { text: 'تحقق مع الموارد البشرية/المرافق أولاً', correct: true, feedback: 'ممتاز! تغييرات السياسة الرسمية تأتي عبر قنوات موثقة.' },
+          { text: 'الشعار يبدو حقيقيًا، إذن هو شرعي', correct: false, feedback: 'الشعارات تُزور بسهولة. تحقق دائمًا عبر مصادر رسمية.' },
+        ],
+      },
+      'social-media-leak': {
+        title: 'صورة على وسائل التواصل',
+        description: 'زميل ينشر صور المكتب. تلاحظ لوحات بيضاء ببيانات اعتماد مرئية في الخلفية.',
+        choices: [
+          { text: 'إنه حسابه الشخصي', correct: false, feedback: 'المعلومات في خلفية الصور خطر أمني حقيقي يستغله المهاجمون.' },
+          { text: 'اطلب منه بلطف إزالتها', correct: true, feedback: 'صحيح! ساعد الزملاء على فهم ما هو مرئي في صورهم.' },
+          { text: 'أبلغ الموارد البشرية فورًا', correct: false, feedback: 'محادثة ودية أولاً أكثر فعالية. ربما لم يدرك.' },
+        ],
+      },
+      'linkedin-phishing': {
+        title: 'رسالة مجند LinkedIn',
+        description: 'مجند يراسلك طالبًا رقم الضمان الاجتماعي وراتبك الحالي "لسجلاتهم."',
+        choices: [
+          { text: 'املأ النموذج', correct: false, feedback: 'المجندون الحقيقيون لا يطلبون رقم الضمان عبر نماذج إلكترونية. هذا سرقة هوية.' },
+          { text: 'تجاهل أو أبلغ عنه كاحتيال', correct: true, feedback: 'ممتاز! المجندون الحقيقيون لا يطلبون معلومات حساسة مقدمًا.' },
+          { text: 'شارك بريد العمل للوثائق', correct: false, feedback: 'لا تعطِ المحتالين بريد عملك - تحقق عبر القنوات الرسمية.' },
+        ],
+      },
+      'cloud-sharing': {
+        title: 'مشاركة ملف سريعة',
+        description: 'بريد الشركة يحظر الملفات الكبيرة. زميل يقترح استخدام Google Drive الشخصي.',
+        choices: [
+          { text: 'استخدم Google Drive الشخصي', correct: false, feedback: 'الحسابات الشخصية تفتقر لضوابط الأمان والامتثال للشركة.' },
+          { text: 'استخدم أدوات الشركة المعتمدة أو اسأل تقنية المعلومات', correct: true, feedback: 'صحيح! أدوات الشركة تحافظ على الأمان وضوابط الوصول.' },
+          { text: 'أنشئ حسابًا جديدًا للعمل', correct: false, feedback: 'الحسابات غير المصرح بها تتجاوز سياسات الأمان أيضًا.' },
+        ],
+      },
+      'disposal-fail': {
+        title: 'التخلص من معدات قديمة',
+        description: 'زميل يرمي قرصًا صلبًا قديمًا في سلة المهملات العادية. "تقنية المعلومات قالت إنه مُمسح."',
+        choices: [
+          { text: 'ساعده برميه', correct: false, feedback: 'الأقراص "الممسوحة" يمكن استعادتها. التخلص السليم يتطلب تدميرًا فيزيائيًا.' },
+          { text: 'أعده لتقنية المعلومات للتخلص الآمن', correct: true, feedback: 'ممتاز! تقنية المعلومات تتعامل مع وسائط التخزين لضمان التدمير السليم.' },
+          { text: 'حطمه بالمطرقة', correct: false, feedback: 'التدمير الذاتي غير آمن وقد لا يدمر البيانات بالكامل.' },
+        ],
+      },
     },
+
+    // Level Select
+    selectLevel: 'اختر المستوى',
+    level1Name: 'المكتب الرئيسي',
+    level1Subtitle: 'مبتدئ',
+    level1Desc: 'تعلم أساسيات التوعية الأمنية',
+    level2Name: 'مركز البيانات',
+    level2Subtitle: 'متوسط',
+    level2Desc: 'حماية البنية التحتية الحرجة',
+    level3Name: 'الطابق التنفيذي',
+    level3Subtitle: 'متقدم',
+    level3Desc: 'الدفاع ضد الهجمات المستهدفة',
+    scenarios: 'سيناريوهات',
+    bestScore: 'الأفضل',
+    unlockRequirement: 'أكمل المستوى السابق\nبنسبة 70%+',
+    levelLocked: 'مقفل',
+
+    // Data Center room labels
+    serverHall: 'قاعة الخوادم',
+    cooling: 'التبريد',
+    network: 'عمليات الشبكة',
+    securityStation: 'محطة الأمن',
+
+    // Executive Floor room labels
+    ceoOffice: 'مكتب الرئيس التنفيذي',
+    boardroom: 'غرفة الاجتماعات',
+    executiveAssistant: 'مساعد تنفيذي',
+    vipReception: 'استقبال كبار الشخصيات',
+
+    // Story mode
+    skip: 'تخطي >>',
+    clickToContinue: 'انقر للمتابعة...',
+    storyCharacterName: 'ضابط الأمن تشين',
+    story1Intro1: 'مرحبًا بك في شركة أكمي! أنا الضابط تشين، مرشدك لتصبح بطل التوعية الأمنية.',
+    story1Intro2: 'اليوم هو يومك الأول في المكتب الرئيسي. ستتعلم كيفية اكتشاف التهديدات الأمنية الشائعة.',
+    story1Intro3: 'تذكر: الأمن السيبراني مسؤولية الجميع. كن يقظًا!',
+    story1Intro4: 'استكشف المكتب وتفاعل مع الأشياء المتوهجة للتعامل مع سيناريوهات الأمان.',
+    story1Outro1: 'عمل ممتاز في يومك الأول! لقد أظهرت وعيًا أمنيًا رائعًا.',
+    story1Outro2: 'لكن هناك المزيد لحمايته. تم اكتشاف نشاط غريب في مركز البيانات...',
+    story2Intro1: 'اكتشفنا نشاطًا غير عادي على الشبكة. مركز البيانات يحتاج اهتمامك.',
+    story2Intro2: 'هذه المنطقة تحتوي على بنيتنا التحتية الحرجة. المخاطر أعلى هنا.',
+    story2Intro3: 'الأمن المادي والتحكم في الوصول أمران بالغا الأهمية. ثق ولكن تحقق.',
+    story2Outro1: 'البنية التحتية آمنة. لكن تحقيقنا كشف عن تهديد أعمق...',
+    story2Outro2: 'تشير المعلومات إلى أن المديرين التنفيذيين مستهدفون. توجه إلى الطابق التنفيذي.',
+    story3Intro1: 'مرحبًا بك في الطابق التنفيذي. هنا يعمل الأهداف عالية القيمة.',
+    story3Intro2: 'المهاجمون يستهدفون المديرين التنفيذيين بهندسة اجتماعية متطورة.',
+    story3Intro3: 'احتيال الرئيس التنفيذي، التجسس الصناعي، التهديدات الداخلية... يجب أن تكون مستعدًا لأي شيء.',
+    story3Outro1: 'رائع! لقد حميت شركة أكمي من الأعلى إلى الأسفل.',
+    story3Outro2: 'أنت الآن رسميًا بطل التوعية الأمنية. المنظمة أكثر أمانًا بفضلك!',
+    story3Outro3: 'تذكر: الأمن رحلة مستمرة، وليس وجهة. ابق يقظًا!',
   },
 };
 

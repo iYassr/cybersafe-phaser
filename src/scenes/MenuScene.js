@@ -144,7 +144,7 @@ export default class MenuScene extends Phaser.Scene {
     console.log('Starting game...')
     this.registry.set('score', 0)
     this.registry.set('completedScenarios', [])
-    this.scene.start('OfficeScene')
+    this.scene.start('LevelSelectScene')
   }
 
   createBackgroundGrid() {

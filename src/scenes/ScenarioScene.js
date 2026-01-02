@@ -36,6 +36,29 @@ export default class ScenarioScene extends Phaser.Scene {
       'server-access': 'server-preview',
       'clean-desk': 'doc-preview',
       'shoulder-surfing': 'doc-preview',
+      // New scenarios
+      'ransomware-popup': 'email-preview',
+      'fake-antivirus': 'email-preview',
+      'mobile-charging': 'phone-preview',
+      'qr-code-scam': 'doc-preview',
+      'social-media-leak': 'doc-preview',
+      'linkedin-phishing': 'email-preview',
+      'cloud-sharing': 'email-preview',
+      'disposal-fail': 'usb-preview',
+      // Data Center scenarios
+      'dc-server-access': 'server-preview',
+      'dc-backup-verify': 'server-preview',
+      'dc-network-sniffing': 'wifi-preview',
+      'dc-cable-label': 'server-preview',
+      'dc-visitor-escort': 'door-preview',
+      'dc-maintenance-window': 'email-preview',
+      // Executive scenarios
+      'exec-ceo-fraud-advanced': 'email-preview',
+      'exec-board-presentation': 'usb-preview',
+      'exec-assistant-request': 'phone-preview',
+      'exec-merger-leak': 'doc-preview',
+      'exec-competitor-spy': 'email-preview',
+      'exec-vip-visitor': 'door-preview',
     }
 
     return idToPreview[this.scenario.id] || typeToPreview[this.scenario.type] || 'email-preview'
@@ -57,6 +80,29 @@ export default class ScenarioScene extends Phaser.Scene {
       'server-access': '🖥️ SERVER ROOM',
       'clean-desk': '📄 AT THE PRINTER',
       'shoulder-surfing': '👀 BREAK ROOM',
+      // New scenarios
+      'ransomware-popup': '🔒 ALERT ON SCREEN',
+      'fake-antivirus': '⚠️ POPUP WARNING',
+      'mobile-charging': '🔋 AT CONFERENCE',
+      'qr-code-scam': '📱 FLYER ON DESK',
+      'social-media-leak': '📸 COLLEAGUE POSTING',
+      'linkedin-phishing': '💼 LINKEDIN MESSAGE',
+      'cloud-sharing': '☁️ FILE SHARING',
+      'disposal-fail': '🗑️ IT DISPOSAL',
+      // Data Center scenarios
+      'dc-server-access': '🔐 SERVER ROOM DOOR',
+      'dc-backup-verify': '💾 BACKUP SYSTEM',
+      'dc-network-sniffing': '📡 NETWORK ALERT',
+      'dc-cable-label': '🔌 UNKNOWN DEVICE',
+      'dc-visitor-escort': '👤 UNESCORTED VISITOR',
+      'dc-maintenance-window': '📞 URGENT CALL',
+      // Executive scenarios
+      'exec-ceo-fraud-advanced': '📧 CEO REQUEST',
+      'exec-board-presentation': '💻 BOARDROOM SETUP',
+      'exec-assistant-request': '📞 CFO OFFICE CALL',
+      'exec-merger-leak': '📄 CONFIDENTIAL DOCS',
+      'exec-competitor-spy': '📧 RESEARCH OFFER',
+      'exec-vip-visitor': '👔 VIP ARRIVAL',
     }
 
     return idLabels[this.scenario.id] || labels[this.scenario.type] || '⚠️ ALERT'
@@ -442,7 +488,7 @@ export default class ScenarioScene extends Phaser.Scene {
 
     // Points display
     if (correct) {
-      const pointsText = this.add.text(feedbackX, 155, `+${this.scenario.points} pts`, {
+      const pointsText = this.add.text(feedbackX, 145, `+${this.scenario.points} pts`, {
         font: 'bold 28px monospace',
         fill: '#ffd700',
       })
@@ -460,6 +506,59 @@ export default class ScenarioScene extends Phaser.Scene {
         duration: 200,
         yoyo: true,
       })
+    }
+
+    // Learn More button (if available)
+    if (this.scenario.learnMore) {
+      const learnMoreY = correct ? 185 : 155
+
+      // Learn More link button
+      const learnMoreBtn = this.add.container(feedbackX, learnMoreY)
+
+      // Background for hover effect
+      const btnBg = this.add.rectangle(0, 0, 160, 30, 0x2980b9, 0.8)
+      btnBg.setStrokeStyle(1, 0x3498db)
+      learnMoreBtn.add(btnBg)
+
+      // Link text with icon
+      const learnMoreText = this.add.text(0, 0, `📚 ${t('learnMore')}`, {
+        font: 'bold 14px monospace',
+        fill: '#ffffff',
+      })
+      learnMoreText.setOrigin(0.5)
+      learnMoreBtn.add(learnMoreText)
+
+      // Make interactive
+      btnBg.setInteractive({ useHandCursor: true })
+
+      btnBg.on('pointerover', () => {
+        btnBg.setFillStyle(0x3498db)
+        this.tweens.add({
+          targets: learnMoreBtn,
+          scaleX: 1.05,
+          scaleY: 1.05,
+          duration: 100,
+        })
+      })
+
+      btnBg.on('pointerout', () => {
+        btnBg.setFillStyle(0x2980b9, 0.8)
+        this.tweens.add({
+          targets: learnMoreBtn,
+          scaleX: 1,
+          scaleY: 1,
+          duration: 100,
+        })
+      })
+
+      btnBg.on('pointerdown', () => {
+        // Play click sound
+        if (this.soundManager) this.soundManager.playClick()
+        // Open URL in new tab
+        window.open(this.scenario.learnMore.url, '_blank')
+      })
+
+      this.feedbackContainer.add(learnMoreBtn)
     }
 
     // Show feedback container

@@ -1,7 +1,11 @@
 import Phaser from 'phaser'
 import BootScene from './scenes/BootScene.js'
 import MenuScene from './scenes/MenuScene.js'
+import LevelSelectScene from './scenes/LevelSelectScene.js'
+import StoryScene from './scenes/StoryScene.js'
 import OfficeScene from './scenes/OfficeScene.js'
+import DataCenterScene from './scenes/DataCenterScene.js'
+import ExecutiveFloorScene from './scenes/ExecutiveFloorScene.js'
 import ScenarioScene from './scenes/ScenarioScene.js'
 import ResultsScene from './scenes/ResultsScene.js'
 import SoundManager from './utils/SoundManager.js'
@@ -27,7 +31,7 @@ const config = {
   input: {
     activePointers: 1,
   },
-  scene: [BootScene, MenuScene, OfficeScene, ScenarioScene, ResultsScene],
+  scene: [BootScene, MenuScene, LevelSelectScene, StoryScene, OfficeScene, DataCenterScene, ExecutiveFloorScene, ScenarioScene, ResultsScene],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -40,7 +44,7 @@ const game = new Phaser.Game(config)
 // Global game state
 game.registry.set('score', 0)
 game.registry.set('completedScenarios', [])
-game.registry.set('totalScenarios', 12)
+game.registry.set('totalScenarios', 20)
 
 // Initialize sound manager after game is ready
 game.events.once('ready', () => {
