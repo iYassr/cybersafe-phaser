@@ -13,6 +13,19 @@ export default class MenuScene extends Phaser.Scene {
       this.registry.set('soundManager', new SoundManager(this))
     }
     this.sound = this.registry.get('soundManager')
+
+    // Resume audio context on any user interaction (browser autoplay policy)
+    const resumeAudio = () => {
+      if (this.sound) {
+        this.sound.resume()
+      }
+      // Remove listeners after first interaction
+      this.input.off('pointerdown', resumeAudio)
+      this.input.keyboard.off('keydown', resumeAudio)
+    }
+    this.input.on('pointerdown', resumeAudio)
+    this.input.keyboard.on('keydown', resumeAudio)
+
     const width = this.cameras.main.width
     const height = this.cameras.main.height
 
